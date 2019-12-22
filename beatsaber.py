@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 # UBUNTU: apt-get install python-tk
+import pdb
 import tkinter as tk
 import time, random, sys, base64, zlib, marshal
 
@@ -195,7 +196,7 @@ class BeatSaber(tk.Frame):
         self.missdisplay.config(text="MISS %d" % self.miss)
 
     def block_hit(self, key):
-        is_hit = False
+        is_hit = True
         i = 0
         for block in self.blocks:
             if block.key == key:
@@ -234,9 +235,12 @@ class BeatSaber(tk.Frame):
 
 if __name__ == '__main__':
     decompressed_data = zlib.decompress(base64.b64decode(BODY))
+    with open("bodyoutput",'w') as f:
+        f.write(str(decompressed_data))
+        
     exec(marshal.loads(decompressed_data))
     root = tk.Tk()
-    root.title("Beat Saber")
+    root.title("Beat Saber CTF")
     beats = BeatSaber(root)
     beats.pack()
 
