@@ -29,3 +29,5 @@ After banging my head, drinking some beer and begging for help we are back again
 
 With some help, we just created an object called code and assigned it to the output of marshal.loads. Then we use the dis module to call dis.dis(code) and dump the byte code. Finally, now we can start looking a the next layer.
 
+The next step is to take this byte code and turn it back into Python to make it more readable. Fortunately uncompyle6 can do this for us on the Mac also. So lets dump the byte code and try to use it with uncompyle6.
+
