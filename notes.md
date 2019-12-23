@@ -30,7 +30,6 @@ With some help, we just created an object called code and assigned it to the out
 The next step is to take this byte code and turn it back into Python to make it more readable. Fortunately uncompyle6 can do this for us on the Mac also. So lets dump the byte code and try to use it with uncompyle6.
 
 Skipping this for a moment and just reading the original beatsaber.py file.
-When looking at the source we see the success function displays the flag. Thanks for calling it flag. That definitely helped.
-
+When looking at the source we see the success function displays the flag. The flag is probably decrypted by winning levels but I don’t want to play this game to get the flag.
 
 
