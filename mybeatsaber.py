@@ -170,6 +170,7 @@ class BeatSaber(tk.Frame):
                 self.success('Not the flag :(')
             for block in self.blocks:
 
+                print(self.key)
                 if block.y1 <= PLAYGROUND_HEIGHT+100:
                     block.move(0, self.speed)
                 elif block.active == 1 and PLAYGROUND_HEIGHT < block.y1:
@@ -184,7 +185,7 @@ class BeatSaber(tk.Frame):
             if not self.blocks:
                 self.level+=1
                 self.combo=0
-                self.miss = 0
+                self.misps = 0
                 key = "".join(self.key)
                 outdata = self.core.levelup(key)
                 if outdata != None:

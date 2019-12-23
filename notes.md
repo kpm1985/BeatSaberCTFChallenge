@@ -34,3 +34,7 @@ When looking at the source we see the success function displays the flag. The fl
 
 Since a cool person @KerberToast offered some help we made some progress. The current goal is to just see where the program is calling the
 Core.py object we dumped.
+
+Looking closer at the bytecode in the dumped file we created there is a object called Core. This object has a function called levelup. Looking at the code in this function it calls a function unwrap with an argument called seq. If you complete enough levels it loads a variable called data and returns. Otherwise it increments the level counter and increases the beat length or something and continues.
+
+In the beatsaber.py file there is a function called move_blocks. It does some calculations then calls self.core.levelup(key). You cant just null out the blocks as playing and destroying them triggers the creation of a key. So we cant just bypass that check and make all blocks gone and hope to win. We will need to find a way to cheat the game and actually win. My current plan is to find the hit calculations and patch a compare there so that the block is always destroyed. This will require patching that weird marshaled code and screwing with patching python. As I read I am hoping to get lucky and see a spot in the python with source code so I can avoid using more tools.
