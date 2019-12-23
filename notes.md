@@ -25,9 +25,12 @@ So, we looked at the marshal loads and it takes a byte-like object.
 Now we are trying to decode this string into an object. 
 We dumped a string representation of this object.
 
-After banging my head, drinking some beer and begging for help we are back again. This time with more time, more patience, more beer and its raining outside. This shit is on lock.
-
 With some help, we just created an object called code and assigned it to the output of marshal.loads. Then we use the dis module to call dis.dis(code) and dump the byte code. Finally, now we can start looking a the next layer.
 
 The next step is to take this byte code and turn it back into Python to make it more readable. Fortunately uncompyle6 can do this for us on the Mac also. So lets dump the byte code and try to use it with uncompyle6.
+
+Skipping this for a moment and just reading the original beatsaber.py file.
+When looking at the source we see the success function displays the flag. Thanks for calling it flag. That definitely helped.
+
+
 
