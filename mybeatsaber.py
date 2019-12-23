@@ -239,8 +239,6 @@ class BeatSaber(tk.Frame):
 if __name__ == '__main__':
     decompressed_data = zlib.decompress(base64.b64decode(BODY))
     core = marshal.loads(decompressed_data)
-
-    print(inspect.getmembers(core))
     exec(core)
     root = tk.Tk()
     root.title("Beat Saber CTF")
