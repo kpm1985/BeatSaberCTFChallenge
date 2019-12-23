@@ -14,15 +14,15 @@ It looks like it is serialized python bytecode.
 Need to reverse this bytecode back into object code that is more readable.
 
 At this point, I need to look at the networking and basic process information of this executable.
-A common sense question after running this is "Where are the assets?" 
-Are there network operations being performed? 
+A common sense question after running this is "Where are the assets?"
+Are there network operations being performed?
 A dirty way to test is to just disable wireless ior ethernet (inclusive or)
 
 Time currently being wasted by Rocket League
 
 Ok, we got some hints. We need to look at marshal and how it loads byte code
 So, we looked at the marshal loads and it takes a byte-like object.
-Now we are trying to decode this string into an object. 
+Now we are trying to decode this string into an object.
 We dumped a string representation of this object.
 
 With some help, we just created an object called code and assigned it to the output of marshal.loads. Then we use the dis module to call dis.dis(code) and dump the byte code. Finally, now we can start looking a the next layer.
@@ -32,4 +32,5 @@ The next step is to take this byte code and turn it back into Python to make it 
 Skipping this for a moment and just reading the original beatsaber.py file.
 When looking at the source we see the success function displays the flag. The flag is probably decrypted by winning levels but I don’t want to play this game to get the flag.
 
-
+Since a cool person @KerberToast offered some help we made some progress. The current goal is to just see where the program is calling the
+Core.py object we dumped.

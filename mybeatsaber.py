@@ -1,5 +1,8 @@
 #!/usr/bin/python3
 # UBUNTU: apt-get install python-tk
+import pdb
+import dis
+import inspect
 import tkinter as tk
 import time, random, sys, base64, zlib, marshal
 
@@ -164,8 +167,9 @@ class BeatSaber(tk.Frame):
         if self.run:
             if self.miss > 5:
                 self.run = False
-                self.gameover()
+                self.success('Not the flag :(')
             for block in self.blocks:
+
                 if block.y1 <= PLAYGROUND_HEIGHT+100:
                     block.move(0, self.speed)
                 elif block.active == 1 and PLAYGROUND_HEIGHT < block.y1:
@@ -233,8 +237,11 @@ class BeatSaber(tk.Frame):
         self.run = True
 
 if __name__ == '__main__':
-    decompressed_data = zlib.decompress(base64.b64decode(BODY))        
-    exec(marshal.loads(decompressed_data))
+    decompressed_data = zlib.decompress(base64.b64decode(BODY))
+    core = marshal.loads(decompressed_data)
+
+    print(inspect.getmembers(core))
+    exec(core)
     root = tk.Tk()
     root.title("Beat Saber CTF")
     beats = BeatSaber(root)
