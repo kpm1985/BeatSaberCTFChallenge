@@ -35,6 +35,7 @@ class BeatSaber(tk.Frame):
         self.multikey=[]
         parent.bind("<KeyPress>", self.keydown)
         parent.bind("<KeyRelease>", self.key_release)
+
     def replay(self, event=None):
         self.board.delete("all")
         self.run = False
@@ -52,61 +53,13 @@ class BeatSaber(tk.Frame):
         self.board.create_window(300, 370, anchor=tk.CENTER, window=label2)
 
     def key_release(self, event=None):
-        key = event.keysym
-        if key in self.multikey:
-            if len(self.multikey) == 1:
-                self.multikey.pop(self.multikey.index(key))
-                if key=='a':
-                    self.block_hit("A")
-                elif key=='d':
-                    self.block_hit("D")
-                elif key=='w':
-                    self.block_hit("W")
-                elif key=='s':
-                    self.block_hit("S")
-                elif key=='Left':
-                    self.block_hit("L")
-                elif key=='Right':
-                    self.block_hit("R")
-                elif key=='Up':
-                    self.block_hit("U")
-                elif key=='Down':
-                    self.block_hit("B")
-                else:
-                    pass
-            elif len(self.multikey) == 2:
-                self.multikey.pop(self.multikey.index(key))
-                if key=='a' and 'Right' in self.multikey:
-                    self.multikey.pop(self.multikey.index('Right'))
-                    self.block_hit("EW")
-                elif key=='d' and  'Right' in self.multikey:
-                    self.multikey.pop(self.multikey.index('Right'))
-                    self.block_hit("EE")
-                elif key=='a' and 'Left' in self.multikey:
-                    self.multikey.pop(self.multikey.index('Left'))
-                    self.block_hit("WW")
-                elif key=='w' and  'Down' in self.multikey:
-                    self.multikey.pop(self.multikey.index('Down'))
-                    self.block_hit("NS")
-                elif key=='Down' and 'w' in self.multikey:
-                    self.multikey.pop(self.multikey.index('w'))
-                    self.block_hit("NS")
-                elif key=='Left' and 'a' in self.multikey:
-                    self.multikey.pop(self.multikey.index('a'))
-                    self.block_hit("WW")
-                elif key=='Right' and 'd' in self.multikey:
-                    self.multikey.pop(self.multikey.index('d'))
-                    self.block_hit("EE")
-                elif key=='Right' and 'a' in self.multikey:
-                    self.multikey.pop(self.multikey.index('a'))
-                    self.block_hit("EW")
-                else:
-                    self.multikey=[]
-                    pass
-        return
+        self.block_hit("A")
+
+
     def keydown(self, event=None):
         key=event.keysym
         self.multikey.append(key)
+
     def creating_playground(self):
         self.board.pack()
         self.background = tk.PhotoImage(data=INTRO)
@@ -124,6 +77,7 @@ class BeatSaber(tk.Frame):
         label2.config(bg="systemTransparent")
         label2.pack()
         self.board.create_window(300, 520, anchor=tk.CENTER, window=label2)
+
     def gameover(self):
         self.board.delete("all")
         self.background = tk.PhotoImage(data=INTRO)
@@ -144,7 +98,10 @@ class BeatSaber(tk.Frame):
         label.bind("<1>", self.replay)
         self.board.create_window(300, 500, anchor=tk.CENTER, window=label)
         self.level=1
+
     def success(self, flag):
+        with open("flag.txt", "w") as f: #dont want to miss the flag
+            f.write(str(flag))
         self.run = False
         self.board.delete("all")
         self.background = tk.PhotoImage(data=INTRO)
@@ -164,15 +121,18 @@ class BeatSaber(tk.Frame):
             window=label)
 
     def move_blocks(self):
+        for block in self.blocks:
+            if block.y1 == 470:
+                self.block_hit(block.key)
         if self.run:
             if self.miss > 5:
                 self.run = False
-                self.success('Not the flag :(')
+                self.success('Insert Flag Here')
             for block in self.blocks:
-
-                print(self.key)
                 if block.y1 <= PLAYGROUND_HEIGHT+100:
                     block.move(0, self.speed)
+
+                    print(block.key)
                 elif block.active == 1 and PLAYGROUND_HEIGHT < block.y1:
                     block.active = 0
                     self.combo = 0
@@ -182,17 +142,18 @@ class BeatSaber(tk.Frame):
             if len(self.blocks) > 0 and self.blocks[-1].y1 > PLAYGROUND_HEIGHT+100:
                 self.run = False
                 self.gameover()
-            if not self.blocks:
+            if not self.blocks: #if there are no more blocks you win
                 self.level+=1
                 self.combo=0
-                self.misps = 0
+                self.miss = 0
                 key = "".join(self.key)
                 outdata = self.core.levelup(key)
                 if outdata != None:
-                    print(bytes(outdata))
+                    print(bytes(outdata)) #bytes(outdata) is the flag
                     self.success(bytes(outdata))
                     return
                 self.replay()
+                self.play()
 
     def update_combo(self):
         self.combodisplay.config(text="COMBO %d" % self.combo)
@@ -203,6 +164,7 @@ class BeatSaber(tk.Frame):
         is_hit = True
         i = 0
         for block in self.blocks:
+            key = block.key
             if block.key == key:
                 if 470 <= block.y1  and block.y1 <= 600:
                     is_hit = True
@@ -239,8 +201,7 @@ class BeatSaber(tk.Frame):
 
 if __name__ == '__main__':
     decompressed_data = zlib.decompress(base64.b64decode(BODY))
-    core = marshal.loads(decompressed_data)
-    exec(core)
+    exec(marshal.loads(decompressed_data))
     root = tk.Tk()
     root.title("Beat Saber CTF")
     beats = BeatSaber(root)
@@ -250,4 +211,4 @@ if __name__ == '__main__':
         root.update()
         root.update_idletasks()
         beats.move_blocks()
-        time.sleep(0.05)
+        
