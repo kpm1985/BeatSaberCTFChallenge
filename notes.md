@@ -45,3 +45,8 @@ As we look at the code in another pass, we notice the blocks when hit append a k
 Last after the level is over we call self.play so we dont have to click in between each level. But this is now slow and painful, so we look at the source again. We don't increase the block speed, but choose to kill the call to sleep instead in the while loop (#?). With this approach it takes about 20 minutes for the game to beat itself but it runs fast enough to be entertaining watching. I plan on writing a better way later but the flag is dumped at the end to a flag.txt file and it is the correct flag.
 
 This writeup is temporary. I'm going to do a better job with links and line numbers. Plus better structure in general this is so informal.
+
+In the end before I get too proper and delete a bunch of stuff, I want to say thanks so much to @KerberToast and @malwareunicorn
+Amanda created the CTF and I was actually able to solve it (I made it more difficult). Its so cool to solve, as my first CTF, one that is
+from an industry icon. And for @KerberToast it was so cool to meet someone who took the time to help me. I am normally pretty smart,
+but this felt a lot like a "first" to me and it was silly how hard I made it on myself. Anyways, the help is appreciated immensely as is the CTF itself and these two have my deep gratitude. It was a fun ctf I took lots of breaks and drinks it was really fun. And I did learn a lot and some good new skills so its a definite win. Best gift.
