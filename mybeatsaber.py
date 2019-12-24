@@ -27,7 +27,7 @@ class BeatSaber(tk.Frame):
         self.creating_playground()
         self.level = 1
         self.combo = 0
-        self.speed = 5
+        self.speed = 10
         self.key = []
         self.blocks = []
         self.levelpass = True
@@ -211,4 +211,3 @@ if __name__ == '__main__':
         root.update()
         root.update_idletasks()
         beats.move_blocks()
-        
