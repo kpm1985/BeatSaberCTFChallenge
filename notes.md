@@ -50,3 +50,7 @@ In the end before I get too proper and delete a bunch of stuff, I want to say th
 Amanda created the CTF and I was actually able to solve it (I made it more difficult). Its so cool to solve, as my first CTF, one that is
 from an industry icon. And for @KerberToast it was so cool to meet someone who took the time to help me. I am normally pretty smart,
 but this felt a lot like a "first" to me and it was silly how hard I made it on myself. Anyways, the help is appreciated immensely as is the CTF itself and these two have my deep gratitude. It was a fun ctf I took lots of breaks and drinks it was really fun. And I did learn a lot and some good new skills so its a definite win. Best gift.
+
+Took the time today to add a programatic solver. All it does is strip out the logic from the original game and just eliminates all the graphics and game code. With this 
+new approach it takes seconds to get the flag instead of almost 15 minutes. Still I kinda miss watching the blocks race toward certain death but this was only like a 20 minute
+hack job in python.
