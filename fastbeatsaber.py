@@ -208,7 +208,6 @@ if __name__ == '__main__':
     beats.pack()
     beats.play()
 
-
     for level in range(1,101):
         key = []
         for block in beats.blocks:
